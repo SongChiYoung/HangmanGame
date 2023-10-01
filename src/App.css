@@ -49,7 +49,7 @@
   }
   
   .button-alphabet:disabled {
-    background-color: #ccc;
+    background-color: red;
     cursor: not-allowed;
   }
   
