@@ -43,7 +43,7 @@ function App() {
 
   const renderButtons = () => {
     return (
-        <button onClick={ () => startGame(wordsList.random()) }>
+        <button id="StartButton" onClick={ () => startGame(wordsList.random()) }>
             New Game
         </button>
     )
@@ -51,7 +51,7 @@ function App() {
 
   const renderAlphabets = () => {
     return "abcdefghijklmnopqrstuvwxyz".split("").map((letter, index) => (
-      <button key={index} onClick={() => checkAlphabet(letter)}
+      <button class="button-alphabet" key={index} onClick={() => checkAlphabet(letter)}
         disabled={disabledAlphabets.includes(letter)}
       >
         {letter}
@@ -59,15 +59,9 @@ function App() {
     ));
   };
 
-  return (
-    <div id="Game">
-      <div id="Container">
-      <h1 style={{textAlign: "center"}}>Hangman Game</h1>
-      <div id="Failures">
-        <strong>Failures: {errorCount} / 8</strong>
-      </div>
-      <div id="HangingMan">
-        <svg height="250" width="200">
+  const renderHangingMan = () => {
+    return (
+      <svg height="250" width="200">
           {/* Base */}
           <line x1="50" y1="200" x2="150" y2="200" style={{stroke:"#000", strokeWidth:2}} />
           {/* Vertical Pole */}
@@ -93,12 +87,30 @@ function App() {
           {/* Right Leg */}
           {errorCount > 7 && <line x1="140" y1="120" x2="160" y2="140" style={{stroke:"#000", strokeWidth:2}} />}
         </svg>
+    );
+  };
+
+  return (
+    <div id="Game">
+      <div id="Container">
+      <h1 style={{textAlign: "center"}}>Hangman Game</h1>
+      <div id="Failures">
+        <strong>Failures: {errorCount} / 8</strong>
       </div>
-      <div id="Alpha">{errorCount <= 7 && hiddenWord.includes("_") && renderAlphabets()}</div>
+      <div id="HangingMan">
+        {renderHangingMan()}
+      </div>
+      <div class="Container">
+        <div id="Alpha" style={{pointerEvents: errorCount >= 8 || !hiddenWord.includes("_") ? 'none' : 'auto'}} >
+          {renderAlphabets()}
+        </div>
+      </div>
       <div id="HiddenWord">{hiddenWord.join(" ")}</div>
-      <div id="Lose">{errorCount >= 8 ? "You Lose!" : ""}</div>
-      <div id="Win">{!hiddenWord.includes("_") ? "You Win!" : ""}</div>
-      <div id="StartButton">{renderButtons()}</div>
+      <div class="result">
+        <div id="Lose">{errorCount >= 8 ? "You Lose!" : ""}</div>
+        <div id="Win">{!hiddenWord.includes("_") ? "You Win!" : ""}</div>
+      </div>
+      <div class="Container">{renderButtons()}</div>
     </div>
     </div>
   );
