@@ -64,35 +64,30 @@ function App() {
     return (
       <svg height="250" width="200">
         {/* Base */}
-        <line x1="50" y1="200" x2="150" y2="200" style={{stroke:"#000", strokeWidth:2}} />
-        {/* Vertical Pole */}
-        {errorCount > 0 && <line x1="100" y1="200" x2="100" y2="50" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Horizontal Pole */}
-        {errorCount > 0 && <line x1="100" y1="50" x2="150" y2="50" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Rope */}
-        {errorCount > 1 && <line x1="140" y1="50" x2="140" y2="70" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Head */}
-        {errorCount > 2 && <circle cx="140" cy="80" r="10" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />}
-        {/* Arms */}
-        {errorCount > 3 && <line x1="140" y1="90" x2="160" y2="110" style={{stroke:"#000", strokeWidth:2}} />}
-        {errorCount > 3 && <line x1="140" y1="90" x2="120" y2="110" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Hands */}
-        {errorCount > 4 && <circle cx="162" cy="112" r="2" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />}
-        {errorCount > 4 && <circle cx="118" cy="112" r="2" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />}   
-        {/* Body */}
-        {errorCount > 5 && <line x1="140" y1="90" x2="140" y2="120" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Legs */}
-        {errorCount > 6 && <line x1="140" y1="120" x2="160" y2="140" style={{stroke:"#000", strokeWidth:2}} />}
-        {errorCount > 6 && <line x1="140" y1="120" x2="120" y2="140" style={{stroke:"#000", strokeWidth:2}} />}
-        {/* Feet */}
-        {errorCount > 7 && (
-          <>
-            {/* Right Foot */}
-            <ellipse cx="162" cy="142" rx="4" ry="2" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />
-            {/* Left Foot */}
-            <ellipse cx="118" cy="142" rx="4" ry="2" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />
-          </>
-        )}
+      <path d="M 50 200 Q 75 190 150 200" style={{stroke:"#000", strokeWidth:4, fill:"none"}} />
+      {/* Vertical Pole */}
+      {errorCount > 0 && <path d="M 100 200 Q 105 125 100 50" style={{stroke:"#000", strokeWidth:3, fill:"none"}} />}
+      {/* Horizontal Pole */}
+      {errorCount > 0 && <path d="M 100 50 Q 125 45 150 50" style={{stroke:"#000", strokeWidth:3, fill:"none"}} />}
+      {/* Rope */}
+      {errorCount > 1 && <path d="M 140 50 Q 142 60 140 70" style={{stroke:"#000", strokeWidth:3, fill:"none"}} />}
+      {/* Head */}
+      {errorCount > 2 && <circle cx="140" cy="80" r="10" style={{stroke:"#000", strokeWidth:2, fill:"#fff"}} />}
+      {/* Arms */}
+      {errorCount > 3 && <path d="M 140 90 Q 145 100 160 110" style={{stroke:"#000", strokeWidth:2, fill:"none"}} />}
+      {errorCount > 3 && <path d="M 140 90 Q 135 100 120 110" style={{stroke:"#000", strokeWidth:2, fill:"none"}} />}
+      {/* Hands */}
+      {errorCount > 4 && <circle cx="162" cy="112" r="2" style={{stroke:"#000", strokeWidth:3, fill:"#fff"}} />}
+      {errorCount > 4 && <circle cx="118" cy="112" r="2" style={{stroke:"#000", strokeWidth:3, fill:"#fff"}} />}   
+      {/* Body */}
+      {errorCount > 5 && <path d="M 140 90 Q 140 100 140 120" style={{stroke:"#000", strokeWidth:2, fill:"none"}} />}
+      {/* Legs */}
+      {errorCount > 6 && <path d="M 140 120 Q 145 130 160 140" style={{stroke:"#000", strokeWidth:2, fill:"none"}} />}
+      {errorCount > 6 && <path d="M 140 120 Q 135 130 120 140" style={{stroke:"#000", strokeWidth:2, fill:"none"}} />}
+      {/* Feet */}
+      {errorCount > 7 && <ellipse cx="162" cy="142" rx="4" ry="2" style={{stroke:"#000", strokeWidth:3, fill:"#fff"}} />}
+      {errorCount > 7 && <ellipse cx="118" cy="142" rx="4" ry="2" style={{stroke:"#000", strokeWidth:3, fill:"#fff"}} />}
+   
         {/* Eyes */}
         {errorCount > 2 && errorCount <= 7 && (
           <>
@@ -114,10 +109,10 @@ function App() {
         {errorCount > 7 && (
           <>
             {/* Eyes turned into X */}
-            <line x1="136" y1="77" x2="138" y2="79" style={{stroke:"#000", strokeWidth:1}} />
-            <line x1="136" y1="79" x2="138" y2="77" style={{stroke:"#000", strokeWidth:1}} />
-            <line x1="142" y1="77" x2="144" y2="79" style={{stroke:"#000", strokeWidth:1}} />
-            <line x1="142" y1="79" x2="144" y2="77" style={{stroke:"#000", strokeWidth:1}} />
+            <line x1="135" y1="76" x2="139" y2="80" style={{stroke:"#000", strokeWidth:1}} />
+            <line x1="135" y1="80" x2="139" y2="76" style={{stroke:"#000", strokeWidth:1}} />
+            <line x1="141" y1="76" x2="145" y2="80" style={{stroke:"#000", strokeWidth:1}} />
+            <line x1="141" y1="80" x2="145" y2="76" style={{stroke:"#000", strokeWidth:1}} />
           </>
         )}
       </svg>

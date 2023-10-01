@@ -1,3 +1,7 @@
+body{
+    font-family: 'Gochi Hand', cursive !important;
+}
+
 #Game{
   display: flex;
   justify-content: center;
@@ -42,6 +46,7 @@
     font-size: 3vh;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    font-family: 'Gochi Hand', cursive !important;
   }
   
   .button-alphabet:hover {
@@ -90,6 +95,7 @@
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-family: 'Gochi Hand', cursive !important;
 }
 
 #Failures{
