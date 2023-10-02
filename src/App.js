@@ -19,9 +19,16 @@ function App() {
   }, []);
 
   const getRandomWord = async () => {
-    const response = await fetch("https://www.wordgamedb.com/api/v1/words/random");
-    const data = await response.json();
-    const randomWord = data.word;
+    var length = 100;
+    var randomWord = "";
+    while(length >= 10){
+      const response = await fetch("https://www.wordgamedb.com/api/v1/words/random");
+      const data = await response.json();
+      const _length = await parseInt(data.numLetters);
+      length = _length
+      randomWord = data.word;
+    }
+    
     return randomWord;
   }
 
@@ -151,6 +158,7 @@ const renderButtons = () => {
       <div class="result">
         <div id="Lose">{errorCount >= 8 ? "You Lose!" : ""}</div>
         <div id="Win">{!hiddenWord.includes("_") ? "You Win!" : ""}</div>
+        <div id="Word">{errorCount >= 8 || !hiddenWord.includes("_") ? 'ANSWER: ' + selectedWord : ''}</div>
       </div>
       <div class="Container">{renderButtons()}</div>
     </div>
