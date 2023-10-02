@@ -62,7 +62,7 @@ function App() {
 
   const renderHangingMan = () => {
     return (
-      <svg height="250" width="200">
+      <svg height="100%" width="100%" viewBox="0 0 250 200">
         {/* Base */}
       <path d="M 50 200 Q 75 190 150 200" style={{stroke:"#000", strokeWidth:4, fill:"none"}} />
       {/* Vertical Pole */}
