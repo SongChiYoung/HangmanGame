@@ -2,10 +2,6 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import './Utils.js';
 
-const wordsList = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape", "honeydew", "kiwi", "lemon", 
-                   "mango", "nectarine", "orange", "peach", "quince", "raspberry", "strawberry", "tangerine", "ugli", "vanilla",
-                   "watermelon", "xigua", "yellowfruit", "zucchini", "blueberry", "coconut", "dragonfruit", "guava", "jackfruit", "lychee"];
-
 function App() {
   const [selectedWord, setSelectedWord] = useState("");
   const [hiddenWord, setHiddenWord] = useState([]);
@@ -14,9 +10,20 @@ function App() {
 
   //Initialize random words when component mounts
   useEffect(() => {
-    const randomWord = wordsList.random();
-    startGame(randomWord);
+    const fetchAndStartGame = async () => {
+      const randomWord = await getRandomWord();
+      startGame(randomWord);
+    };
+  
+    fetchAndStartGame();
   }, []);
+
+  const getRandomWord = async () => {
+    const response = await fetch("https://www.wordgamedb.com/api/v1/words/random");
+    const data = await response.json();
+    const randomWord = data.word;
+    return randomWord;
+  }
 
   const startGame = (word) => {
     setSelectedWord(word);
@@ -41,13 +48,18 @@ function App() {
     return !hiddenWord.includes("_") || errorCount >= 8;
   };
 
-  const renderButtons = () => {
-    return (
-        <button id="StartButton" onClick={ () => startGame(wordsList.random()) }>
-            New Game
-        </button>
-    )
+const renderButtons = () => {
+  const startNewGame = async () => {
+    const randomWord = await getRandomWord();
+    startGame(randomWord);
   };
+
+  return (
+    <button id="StartButton" onClick={startNewGame}>
+      New Game
+    </button>
+  );
+};
 
   const renderAlphabets = () => {
     return "abcdefghijklmnopqrstuvwxyz".split("").map((letter, index) => (
