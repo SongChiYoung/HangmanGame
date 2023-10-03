@@ -7,6 +7,8 @@ function App() {
   const [hiddenWord, setHiddenWord] = useState([]);
   const [disabledAlphabets, setDisabledAlphabets] = useState([]);
   const [errorCount, setErrorCount] = useState(0);
+  //gameStatus 0:start, 1:win, 2:lose
+  const [gameStatus, setGameStatus] = useState(0);
 
   //Initialize random words when component mounts
   useEffect(() => {
@@ -17,6 +19,17 @@ function App() {
   
     fetchAndStartGame();
   }, []);
+
+  //Check game status
+  useEffect(() => {
+    if (errorCount >= 8) {
+      setGameStatus(2);
+    } else if (!hiddenWord.includes("_")) {
+      setGameStatus(1);
+    } else {
+      setGameStatus(0);
+    }
+  }, [errorCount, hiddenWord]);
 
   const getRandomWord = async () => {
     var length = 100;
@@ -37,6 +50,7 @@ function App() {
     setHiddenWord(new Array(word.length).fill("_"));
     setDisabledAlphabets(new Array(0));
     setErrorCount(0);
+    setGameStatus(0);
   };
 
   const checkAlphabet = (letter) => {
@@ -51,22 +65,18 @@ function App() {
     }
   };
 
-  const isGameOver = () => {
-    return !hiddenWord.includes("_") || errorCount >= 8;
-  };
+  const renderButtons = () => {
+    const startNewGame = async () => {
+      const randomWord = await getRandomWord();
+      startGame(randomWord);
+    };
 
-const renderButtons = () => {
-  const startNewGame = async () => {
-    const randomWord = await getRandomWord();
-    startGame(randomWord);
+    return (
+      <button id="StartButton" onClick={startNewGame}>
+        New Game
+      </button>
+    );
   };
-
-  return (
-    <button id="StartButton" onClick={startNewGame}>
-      New Game
-    </button>
-  );
-};
 
   const renderAlphabets = () => {
     return "abcdefghijklmnopqrstuvwxyz".split("").map((letter, index) => (
@@ -150,15 +160,15 @@ const renderButtons = () => {
         {renderHangingMan()}
       </div>
       <div class="Container">
-        <div id="Alpha" style={{pointerEvents: errorCount >= 8 || !hiddenWord.includes("_") ? 'none' : 'auto'}} >
+        <div id="Alpha" style={{pointerEvents: gameStatus>0 ? 'none' : 'auto'}} >
           {renderAlphabets()}
         </div>
       </div>
       <div id="HiddenWord">{hiddenWord.join(" ")}</div>
       <div class="result">
-        <div id="Lose">{errorCount >= 8 ? "You Lose!" : ""}</div>
-        <div id="Win">{!hiddenWord.includes("_") ? "You Win!" : ""}</div>
-        <div id="Word">{errorCount >= 8 || !hiddenWord.includes("_") ? 'ANSWER: ' + selectedWord : ''}</div>
+        <div id="Lose">{gameStatus === 2 ? "You Lose!" : ""}</div>
+        <div id="Win">{gameStatus === 1 ? "You Win!" : ""}</div>
+        <div id="Word">{gameStatus>0 ? 'ANSWER: ' + selectedWord : ''}</div>
       </div>
       <div class="Container">{renderButtons()}</div>
     </div>
